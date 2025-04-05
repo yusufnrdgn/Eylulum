@@ -2,7 +2,10 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- iPhone 15 Pro Max ve diğer modern cihazlar için güncellenmiş viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Kalbimin Kapılarını Aç</title>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,11 +18,13 @@
             font-family: 'Quicksand', sans-serif;
             background-color: #000;
         }
+
         .hidden {
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
         }
+
         .center {
             display: flex;
             align-items: center;
@@ -31,13 +36,14 @@
             overflow: hidden;
             color: #fff;
         }
-        /* Arka plan animasyonları */
+        /* Arka plan animasyonları (yıldızlar, yağmur, yapraklar, kalpler) */
         .stars, .rain, .petals, .hearts-bg {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 0;
         }
+
         .star {
             position: absolute;
             width: 2px;
@@ -46,12 +52,26 @@
             border-radius: 50%;
             animation: twinkle 5s infinite;
         }
+
         @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0; }
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
-        .rain { display: none; }
+
+        .rain {
+            display: none;
+        }
+
         .drop {
             position: absolute;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.7));
@@ -59,12 +79,27 @@
             opacity: 0;
             animation: rain-drop 2s linear infinite;
         }
+
         @keyframes rain-drop {
-            0% { transform: translateY(-100px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(calc(100vh + 100px)); opacity: 0; }
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 100px));
+                opacity: 0;
+            }
         }
-        .petals { display: none; }
+
+        .petals {
+            display: none;
+        }
+
         .petal {
             position: absolute;
             width: 15px;
@@ -74,12 +109,27 @@
             opacity: 0;
             animation: fall 10s linear infinite;
         }
+
         @keyframes fall {
-            0% { transform: translate(0, -10%) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translate(100px, calc(100vh + 50px)) rotate(720deg); opacity: 0; }
+            0% {
+                transform: translate(0, -10%) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(100px, calc(100vh + 50px)) rotate(720deg);
+                opacity: 0;
+            }
         }
-        .hearts-bg { display: none; }
+
+        .hearts-bg {
+            display: none;
+        }
+
         .heart-bg {
             position: absolute;
             font-size: 20px;
@@ -87,17 +137,34 @@
             color: rgba(233, 30, 99, 0.6);
             animation: float-up 12s linear infinite;
         }
+
         @keyframes float-up {
-            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100px) scale(1.2) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-100px) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
         }
         /* Besmele Ekranı */
         #besmeleScreen {
             background: radial-gradient(circle, #1a1a2e, #000);
             z-index: 10;
+            display: flex;
+            flex-direction: column;
         }
+
         .besmele {
             font-size: 3em;
             font-family: 'Libre Baskerville', serif;
@@ -106,11 +173,29 @@
             margin-bottom: 20px;
             z-index: 2;
         }
+
         @keyframes pulse {
-            0% { text-shadow: 0 0 10px rgba(255,255,255,0.7); }
-            100% { text-shadow: 0 0 25px rgba(255,255,255,1), 0 0 30px #ffd6e0; }
+            0% {
+                text-shadow: 0 0 10px rgba(255,255,255,0.7);
+            }
+
+            100% {
+                text-shadow: 0 0 25px rgba(255,255,255,1), 0 0 30px #ffd6e0;
+            }
         }
-        /* "Başlayalım" Butonu için ek stil */
+        /* Geçiş Ekranı */
+        #transitionScreen {
+            background: radial-gradient(circle, #1a1a2e, #000);
+            z-index: 10;
+            display: none;
+            flex-direction: column;
+        }
+
+            #transitionScreen .besmele {
+                font-size: 2.5em;
+                margin-bottom: 0;
+            }
+        /* "Başlayalım" Butonu */
         #startBtn {
             padding: 14px 35px;
             font-size: 1.2em;
@@ -124,13 +209,17 @@
             font-family: 'Quicksand', sans-serif;
             font-weight: 500;
         }
-        #startBtn:hover { transform: translateY(-3px); }
+
+            #startBtn:hover {
+                transform: translateY(-3px);
+            }
         /* Quiz Ekranı */
         #quizScreen {
             background: radial-gradient(circle, #16213e, #0f3460);
             z-index: 5;
             display: none;
         }
+
         .question-container {
             width: 90%;
             max-width: 600px;
@@ -146,9 +235,14 @@
             opacity: 0;
             animation: slide-up 1s forwards;
         }
+
         @keyframes slide-up {
-            to { transform: translateY(0); opacity: 1; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         .question h2 {
             font-family: 'Libre Baskerville', serif;
             margin-bottom: 20px;
@@ -158,12 +252,14 @@
             font-size: 2em;
             line-height: 1.4;
         }
+
         .options {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
+
         .option-item {
             margin: 8px 0;
             width: 100%;
@@ -174,7 +270,11 @@
             align-items: center;
             transition: all 0.3s;
         }
-        .option-item:hover { background: rgba(255,255,255,0.1); }
+
+            .option-item:hover {
+                background: rgba(255,255,255,0.1);
+            }
+
         input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
@@ -186,23 +286,34 @@
             cursor: pointer;
             position: relative;
         }
-        input[type="radio"]:checked:after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #ff9ed8;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse-radio 0.3s;
-        }
+
+            input[type="radio"]:checked:after {
+                content: '';
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                background: #ff9ed8;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: pulse-radio 0.3s;
+            }
+
         @keyframes pulse-radio {
-            0% { transform: translate(-50%, -50%) scale(0); }
-            90% { transform: translate(-50%, -50%) scale(1.2); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            90% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
+
         input[type="text"] {
             width: 100%;
             padding: 15px;
@@ -216,11 +327,16 @@
             transition: all 0.3s;
             font-family: 'Quicksand', sans-serif;
         }
-        input[type="text"]:focus {
-            border-bottom: 2px solid #ff2e93;
-            box-shadow: 0 5px 15px rgba(255,46,147,0.2);
-        }
-        input[type="text"]::placeholder { color: rgba(255,255,255,0.7); }
+
+            input[type="text"]:focus {
+                border-bottom: 2px solid #ff2e93;
+                box-shadow: 0 5px 15px rgba(255,46,147,0.2);
+            }
+
+            input[type="text"]::placeholder {
+                color: rgba(255,255,255,0.7);
+            }
+
         .btn {
             padding: 14px 35px;
             font-size: 1.2em;
@@ -238,7 +354,11 @@
             font-family: 'Quicksand', sans-serif;
             font-weight: 500;
         }
-        .btn:hover { transform: translateY(-3px); }
+
+            .btn:hover {
+                transform: translateY(-3px);
+            }
+
         .progress-container {
             width: 90%;
             max-width: 600px;
@@ -248,6 +368,7 @@
             margin-top: 20px;
             z-index: 2;
         }
+
         .progress-bar {
             height: 100%;
             background: linear-gradient(90deg, #ff2e93, #ff9ed8);
@@ -269,6 +390,7 @@
             pointer-events: none;
             z-index: 1;
         }
+
         .door {
             width: 100%;
             height: 100%;
@@ -276,14 +398,23 @@
             background: #16213e;
             transition: transform 1.5s cubic-bezier(0.86,0,0.07,1);
         }
-        .door-left { transform-origin: left; }
-        .door-right { transform-origin: right; }
+
+        .door-left {
+            transform-origin: left;
+        }
+
+        .door-right {
+            transform-origin: right;
+        }
+
         .door-open .door-left {
             transform: perspective(1200px) rotateY(110deg);
         }
+
         .door-open .door-right {
             transform: perspective(1200px) rotateY(-110deg);
         }
+
         .door-decoration {
             position: absolute;
             width: 100%;
@@ -301,35 +432,61 @@
             z-index: 4;
             display: none;
         }
+
         .final-heart-container {
             position: relative;
             margin-bottom: 30px;
             z-index: 2;
         }
+
         .final-heart {
             font-size: 6em;
             animation: heartbeat 1.5s infinite alternate;
             color: #ff2e93;
             text-shadow: 0 0 20px rgba(255,46,147,0.7);
         }
+
         @keyframes heartbeat {
-            0% { transform: scale(0.8); }
-            100% { transform: scale(1.2); }
+            0% {
+                transform: scale(0.8);
+            }
+
+            100% {
+                transform: scale(1.2);
+            }
         }
+
         .proposal-text {
             font-family: 'Libre Baskerville', serif;
-            font-size: 2.8em;
-            font-weight: 700;
-            margin: 30px 0;
+            font-size: 2em; /* Biraz daha küçük font */
+            font-weight: 500; /* Daha hafif ağırlık */
+            line-height: 1.4; /* Satır aralığını artır */
+            margin: 20px 0;
+            padding: 0 20px;
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
             opacity: 0;
             transform: translateY(20px);
             animation: fade-up 1s 1s forwards;
             z-index: 2;
+            max-width: 80%; /* Maksimum genişlik */
+            text-align: center;
         }
+
+            .proposal-text strong {
+                color: #ff9ed8;
+                font-weight: 700;
+                display: block;
+                margin-top: 15px;
+                font-size: 1.2em;
+            }
+
         @keyframes fade-up {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .answer-buttons {
             display: flex;
             gap: 20px;
@@ -338,18 +495,23 @@
             animation: fade-up 1s 2s forwards;
             z-index: 2;
         }
+
         #yesBtn {
             background: linear-gradient(45deg, #ff2e93, #ff9ed8);
             padding: 15px 40px;
             font-size: 1.3em;
         }
+
         #noBtn {
             background: rgba(255,255,255,0.2);
             border: 2px solid #ff9ed8;
             padding: 15px 40px;
             font-size: 1.3em;
         }
-        #noBtn:hover { background: rgba(255,255,255,0.3); }
+
+            #noBtn:hover {
+                background: rgba(255,255,255,0.3);
+            }
         /* Kutlama ekranı */
         #celebrationScreen {
             position: fixed;
@@ -367,12 +529,14 @@
             pointer-events: none;
             transition: opacity 1s;
         }
+
         .celebration-text {
             font-family: 'Libre Baskerville', serif;
             font-size: 3em;
             text-shadow: 0 0 15px rgba(255,255,255,0.7);
             max-width: 80%;
         }
+
         .firework {
             position: absolute;
             width: 5px;
@@ -380,30 +544,7 @@
             border-radius: 50%;
             opacity: 0;
         }
-        /* JSON İndirme düğmesi */
-        #downloadButton {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 100;
-            font-size: 0.9em;
-            display: none;
-        }
-        #downloadButton:hover { background: rgba(255,255,255,0.3); }
-        /* Responsive ayarlar */
-        @media (max-width: 768px) {
-            .besmele { font-size: 2.3em; }
-            .proposal-text { font-size: 2em; }
-            .question h2 { font-size: 1.5em; }
-            .answer-buttons { flex-direction: column; }
-            .btn { font-size: 1.1em; padding: 12px 30px; }
-        }
+
         /* Hata mesajı stili */
         .error-message {
             position: fixed;
@@ -424,6 +565,7 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 1.8em;
         }
+
         .your-message p {
             background: rgba(255, 20, 147, 0.15);
             padding: 20px;
@@ -446,51 +588,91 @@
             z-index: 10;
             overflow: hidden;
         }
+
         .e-heart {
             position: absolute;
             opacity: 0;
-            font-size: 1.5rem;
+            font-size: 2rem; /* Temel boyutu artırdık */
             animation: float-e-heart 15s linear infinite;
             color: #ff2e93;
-            text-shadow: 0 0 5px rgba(255, 46, 147, 0.7);
+            text-shadow: 0 0 8px rgba(255, 46, 147, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
         }
-        .e-heart::before { content: "E❤️"; }
+
+            .e-heart::before {
+                content: "E❤️";
+            }
+
         @keyframes float-e-heart {
-            0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-20vh) translateX(20vw) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(110vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-20vh) translateX(20vw) rotate(360deg);
+                opacity: 0;
+            }
         }
         /* Kalp kutusu animasyonu */
         .heart-box {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 50px; /* Büyütülmüş boyut */
+            height: 50px; /* Büyütülmüş boyut */
             opacity: 0;
             animation: heart-pulse 2s infinite alternate;
         }
-        .heart-box::before {
-            content: "❤️";
-            font-size: 2em;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+
+            .heart-box::before {
+                content: "❤️";
+                font-size: 2.5em; /* Büyütülmüş içerik */
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
         @keyframes heart-pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            100% { transform: scale(1.3); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
         }
         /* Özel animasyon */
         @keyframes float-heart-special {
-            0% { transform: scale(0.2); opacity: 0; }
-            50% { transform: scale(1.5); opacity: 1; }
-            100% { transform: scale(0.8) translateY(-50px); opacity: 0; }
+            0% {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.8) translateY(-50px);
+                opacity: 0;
+            }
         }
+
         /* Karadelik animasyonu */
         .void-animation {
             position: absolute;
@@ -498,7 +680,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 5;
+            z-index: 100;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -507,7 +689,11 @@
             opacity: 0;
             transition: opacity 1s ease;
         }
-        .void-animation.active { opacity: 1; }
+
+            .void-animation.active {
+                opacity: 1;
+            }
+
         .void-center {
             position: absolute;
             width: 10px;
@@ -518,35 +704,53 @@
             transform: scale(0);
             transition: transform 4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .void-animation.active .void-center { transform: scale(20); }
+
+        .void-animation.active .void-center {
+            transform: scale(20);
+        }
+
         .stars-void {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: -1;
         }
-        .stars-void::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 3px);
-            background-size: 60px 60px;
-            opacity: 0.5;
-        }
+
+            .stars-void::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 3px);
+                background-size: 60px 60px;
+                opacity: 0.5;
+            }
+
         .void-animation.active .stars-void::before {
             animation: suck-in 4s forwards;
         }
+
         @keyframes suck-in {
-            0% { transform: scale(1); opacity: 0.5; }
-            80% { opacity: 0.8; }
-            100% { transform: scale(0); opacity: 0; }
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            80% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
         }
+
         .void-message {
             position: absolute;
-            z-index: 10;
+            z-index: 100;
             color: white;
             text-align: center;
             opacity: 0;
@@ -554,22 +758,257 @@
             width: 80%;
             max-width: 600px;
         }
+
+        .void-animation.active .void-message {
+            opacity: 1;
+        }
+
         .void-message h2 {
             font-family: 'Libre Baskerville', serif;
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
+
         .void-message p {
             font-family: 'Quicksand', sans-serif;
             font-size: 1.5em;
             margin: 15px 0;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
         }
+
         .bitter-smile {
             font-style: italic;
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.2em !important;
+        }
+
+        /* Teşekkür mesajı */
+        .thank-you-message {
+            text-align: center;
+            max-width: 600px;
+        }
+
+            .thank-you-message h2 {
+                font-family: 'Libre Baskerville', serif;
+                font-size: 2.5em;
+                color: #ff9ed8;
+                text-shadow: 0 0 10px rgba(255, 158, 216, 0.5);
+            }
+
+        /* Kırık kalp stilleri */
+        .e-heart[data-broken=true]::before {
+            content: "E💔";
+        }
+
+        .heart-box[data-broken=true]::before {
+            content: "💔";
+        }
+
+        /* Mobil Cihazlar İçin Responsive CSS */
+        @media (max-width: 844px) {
+            /* Genel font boyutları ayarlamaları */
+            body {
+                font-size: 16px;
+            }
+
+            /* Başlangıç ekranı ayarlamaları */
+            .besmele {
+                font-size: 2.2em;
+            }
+
+            #startBtn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+
+            /* Quiz ekranı ayarlamaları */
+            .question-container {
+                width: 90%;
+                padding: 20px;
+                margin-top: 15px;
+            }
+
+            .question h2 {
+                font-size: 1.6em;
+                line-height: 1.4;
+            }
+
+            .option-item {
+                padding: 14px 10px;
+            }
+
+            input[type="radio"] {
+                width: 22px;
+                height: 22px;
+            }
+
+            input[type="text"] {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 15px 25px;
+                font-size: 1.1em;
+                margin: 15px 5px;
+            }
+
+            /* Final ekranı ayarlamaları */
+            .proposal-text {
+                font-size: 1.5em;
+                padding: 0 15px;
+                word-break: break-word;
+            }
+
+            .final-heart {
+                font-size: 5em;
+            }
+
+            .answer-buttons {
+                flex-direction: column;
+                width: 80%;
+            }
+
+            #yesBtn, #noBtn {
+                width: 100%;
+                margin: 8px 0;
+                padding: 16px 0;
+                font-size: 1.2em;
+            }
+
+            /* Void animasyonu mesaj ayarlamaları */
+            .void-message h2 {
+                font-size: 2em;
+            }
+
+            .void-message p {
+                font-size: 1.2em;
+            }
+
+            /* E-Kalpler ayarlamaları */
+            .e-heart {
+                font-size: 1.5rem; /* Mobilde biraz daha küçük */
+            }
+
+            .heart-box {
+                width: 40px;
+                height: 40px;
+            }
+
+                .heart-box::before {
+                    font-size: 2em;
+                }
+
+            /* Sizin cevabınız alanı */
+            .your-message h3 {
+                font-size: 1.5em;
+            }
+
+            .your-message p {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+
+            /* iPhone 15 Pro Max özel ayarlamaları */
+            @media (min-width: 390px) and (max-width: 430px) and (min-height: 844px) {
+                .question-container {
+                    padding: 22px;
+                    border-radius: 18px;
+                    margin-bottom: 20px;
+                }
+
+                .question h2 {
+                    font-size: 1.8em;
+                }
+
+                .proposal-text {
+                    font-size: 2.2em;
+                }
+            }
+
+            /* Geniş ekranlı telefonlar için (iPhone Pro Max gibi) */
+            @media (min-width: 428px) and (max-height: 926px) {
+                .besmele {
+                    font-size: 2.4em;
+                }
+
+                .void-message h2 {
+                    font-size: 2.2em;
+                }
+            }
+
+            /* Küçük ekranlı telefonlar için ekstra ayarlar */
+            @media (max-width: 375px) {
+                .besmele {
+                    font-size: 1.8em;
+                }
+
+                .question h2 {
+                    font-size: 1.4em;
+                }
+
+                .proposal-text {
+                    font-size: 1.8em;
+                }
+            }
+        }
+
+        /* Touch cihazları için ekstra iyileştirmeler */
+        @media (hover: none) {
+            /* Dokunmatik geliştirmeleri */
+            .option-item {
+                min-height: 50px; /* Dokunmak için daha geniş alan */
+            }
+
+            input[type="radio"] {
+                margin-right: 15px; /* Geniş dokunmatik alan */
+            }
+
+            .btn, #yesBtn, #noBtn {
+                min-height: 55px; /* Butonlar için minimum yükseklik */
+            }
+
+                /* Aktif (basılı) durum dokunmatik için optimize edildi */
+                .btn:active, #yesBtn:active, #noBtn:active {
+                    transform: translateY(2px);
+                    opacity: 0.8;
+                }
+        }
+
+        /* iPhone notch ve dynamic island için üst boşluk */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            .center, #besmeleScreen, #transitionScreen, #quizScreen, #finalScreen {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+
+        /* Yatay mod için ayarlamalar */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .center {
+                height: auto;
+                min-height: 100%;
+                padding: 20px 0;
+            }
+
+            .besmele {
+                margin-top: 40px;
+            }
+
+            .question-container {
+                margin: 10px auto;
+            }
+
+            .final-heart-container {
+                margin-bottom: 10px;
+            }
+
+            .proposal-text {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -580,14 +1019,19 @@
     <div class="petals"></div>
     <div class="hearts-bg"></div>
 
-    <!-- Besmele Ekranı (Başlangıç) -->
+    <!-- Besmele Ekranı -->
     <div id="besmeleScreen" class="center">
-        <div class="besmele">Seni kalbimde bir yolculuğa çıkacağım</div>
+        <div class="besmele">Selamünaleyküm Eylülüm</div>
         <button id="startBtn" class="btn">Başlayalım</button>
     </div>
 
+    <!-- Geçiş Ekranı -->
+    <div id="transitionScreen" class="center" style="display:none;">
+        <div class="besmele" style="font-size:2.5em;">Kalbimde bir serüvene başlıyoruz Eylülüm</div>
+    </div>
+
     <!-- Anket / Soru Ekranı -->
-    <div id="quizScreen" class="center">
+    <div id="quizScreen" class="center" style="display:none;">
         <div class="door-container">
             <div class="door door-left">
                 <div class="door-decoration">❤️</div>
@@ -605,29 +1049,31 @@
         </div>
     </div>
 
-    <!-- Final Teklif Ekranı (Final soru: "Benimle çıkar mısın?") -->
-    <div id="finalScreen" class="center">
+    <!-- Final Teklif Ekranı -->
+    <div id="finalScreen" class="center" style="display:none;">
         <div class="final-heart-container">
             <div class="final-heart">❤️</div>
         </div>
-        <h1 class="proposal-text">Benimle çıkar mısın?</h1>
+        <h1 class="proposal-text">
+            Belki şu anda her şey toz pembe değil. Bazen tartışıyoruz, susuyoruz, birbirimizi yanlış anlıyoruz…
+            <br><br>
+            Ama şunu biliyorum: Gerçek sevgi sadece "mutlu anlarda" değil, zor anlarda da el ele kalabilmekte.
+            Zorun kolayıdır bence kaçmak. Unutmak, susmak, geri çekilmek…
+            <br><br>
+            Birlikte bir gelecek için cesur olalım istiyorum. Çünkü içimde her şeye rağmen hâlâ sen varsın.
+            Hâlâ birlikte bir "biz" olma umudu var.
+            <br><br>
+            O yüzden soruyorum, bu sefer kalbimle: <strong>Adımız olsun mu? Eylül... benimle çıkar mısın?</strong>
+        </h1>
         <div class="answer-buttons">
             <button id="yesBtn" class="btn">💖 Evet 💖</button>
             <button id="noBtn" class="btn">Hayır</button>
         </div>
     </div>
 
-    <!-- Kutlama ekranı -->
-    <div id="celebrationScreen" class="center">
-        <div class="celebration-text"></div>
-    </div>
-
-    <!-- JSON İndirme düğmesi -->
-    <button id="downloadButton">Cevapları İndir</button>
-
     <!-- Audio elementleri -->
     <audio id="backgroundMusic" loop>
-        <source src="Eylulum/carla-morrison-disfruto-turkce-ceviri(mp3tur.com).mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/yusufnrdgn/Eylulum/main/carla-morrison-disfruto-turkce-ceviri_(mp3tur.com).mp3" type="audio/mpeg">
     </audio>
     <audio id="doorSound">
         <source src="door.mp3" type="audio/mpeg">
@@ -637,7 +1083,24 @@
     </audio>
 
     <script>
-        // Soru verileri - özelleştirilmiş, "odunsun" sorusu orijinal haliyle
+        // Global değişkenler
+        let currentQuestion = 0;
+        let noClickCount = 0;
+
+        // DOM elementleri için global değişkenler (hata önlemek için)
+        let doorContainer = null;
+        let questionContainer = null;
+        let nextBtn = null;
+        let progressBar = null;
+
+        const userAnswers = {
+            name: "Eylül",
+            date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+            answers: []
+        };
+
+        // Soru verileri
         const questions = [
             {
                 question: "Tanışma tarihimiz?",
@@ -668,24 +1131,17 @@
                 type: "text",
                 answer: "",
                 background: "rain",
-                yourMessage: "Kalbim sanki kavranmış deliler gibi özlüyor ama bir yandan tezatça gülümsüyorum, aptal aptal gülüşünün hayalinde kayboluyorum."
+                yourMessage: "Kalbim sanki kavranmış deliler gibi özlüyor gibi oluyorum ama bir yandan tezatça gülümsüyorum aptal aptal gülüşünün hayalinde kayboluyorum."
             },
             {
                 question: "Bana söylediğin bir söz vardı odunsun demiştin hatırlıyor musun neydi?",
                 type: "text",
                 answer: "",
                 background: "petals",
-                yourMessage: ""
+                yourMessage: "Odunum Eylülüm ama senin için yanıyorum yeşermem gerekiyorsa da seninle yeşermek istiyorum."
             },
             {
-                question: "Bana söylediğin bir söz vardı odunsun demiştin hatırlıyor musun neydi?",
-                type: "text",
-                answer: "",
-                background: "petals",
-                yourMessage: "Odunum Eylülüm ama senin için yanıyorum, yeşermem gerekiyorsa da seninle yeşermek istiyorum."
-            },
-            {
-                question: "Her zaman kokumu içine çekmek, sarılıp sıcaklığımda kollarımda huzur bulmak ister misin Nur'um?",
+                question: "Her zaman kokumu içine çekmek, sarılıp sıcaklığımda, kollarımda huzur bulmak ister misin Nur'um?",
                 type: "text",
                 answer: "",
                 background: "petals",
@@ -696,59 +1152,68 @@
                 type: "text",
                 answer: "",
                 background: "hearts",
-                yourMessage: "Benim için bir ömre değil, bir sonsuzluğa değer."
+                yourMessage: "Benim için bir ömre değil bir sonsuzluğa değer"
             }
         ];
-
-        // Değişkenler
-        let currentQuestion = 0;
-        const userAnswers = {
-            name: "Eylül",
-            date: new Date().toLocaleDateString(),
-            time: new Date().toLocaleTimeString(),
-            answers: []
-        };
 
         // Hata yakalama
         window.onerror = function (message, source, lineno, colno, error) {
             const errorDiv = document.createElement('div');
             errorDiv.classList.add('error-message');
             errorDiv.innerHTML = `
-                <strong>JavaScript Hatası:</strong><br>
-                ${message}<br>
-                <small>Satır: ${lineno}, Kolon: ${colno}</small><br>
-                <button onclick="this.parentNode.style.display='none'">Kapat</button>
-            `;
+                        <strong>JavaScript Hatası:</strong><br>
+                        ${message}<br>
+                        <small>Satır: ${lineno}, Kolon: ${colno}</small><br>
+                        <button onclick="this.parentNode.style.display='none'">Kapat</button>
+                      `;
             document.body.appendChild(errorDiv);
             console.error(message, source, lineno, colno, error);
             return true;
         };
 
-        // Uçuşan E-Kalpler
+        // Geliştirilmiş E-Kalpler fonksiyonu
         function createFloatingEHearts() {
             const existingContainer = document.querySelector('.floating-hearts');
-            if (existingContainer) {
-                existingContainer.remove();
-            }
+            if (existingContainer) { existingContainer.remove(); }
+
             const heartsContainer = document.createElement('div');
             heartsContainer.classList.add('floating-hearts');
             document.body.appendChild(heartsContainer);
-            for (let i = 0; i < 15; i++) {
+
+            // Mobil cihaz tespiti
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            // Kalp sayısını mobil cihazlar için optimize et
+            const heartCount = isMobile ? 20 : 30;
+
+            for (let i = 0; i < heartCount; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('e-heart');
                 heart.style.left = `${Math.random() * 100}%`;
                 heart.style.animationDelay = `${Math.random() * 20}s`;
-                const scale = 0.5 + Math.random() * 1.5;
+
+                // Boyutu mobil/masaüstü için optimize et
+                const scale = isMobile ?
+                    (0.8 + Math.random() * 1.4) : // Mobil için daha küçük
+                    (1.0 + Math.random() * 2.0);  // Masaüstü için daha büyük
                 heart.style.fontSize = `${scale}rem`;
+
                 heart.style.transform = `rotate(${Math.random() * 360}deg)`;
                 heartsContainer.appendChild(heart);
             }
+
+            // Köşe kalpleri
             const corners = [
                 { top: '10%', left: '10%' },
                 { top: '10%', right: '10%' },
                 { bottom: '10%', left: '10%' },
-                { bottom: '10%', right: '10%' }
+                { bottom: '10%', right: '10%' },
+                // Köşelerin yarı noktalarına da ekstra kalp kutuları
+                { top: '10%', left: '50%' },
+                { top: '50%', left: '10%' },
+                { bottom: '10%', left: '50%' },
+                { top: '50%', right: '10%' }
             ];
+
             corners.forEach((position, index) => {
                 const heartBox = document.createElement('div');
                 heartBox.classList.add('heart-box');
@@ -757,435 +1222,651 @@
                 });
                 heartBox.style.animationDelay = `${index * 0.5}s`;
                 heartBox.style.position = 'fixed';
+
+                // Kalp kutu boyutunu cihaza göre ayarla
+                if (isMobile) {
+                    heartBox.style.width = '42px';
+                    heartBox.style.height = '42px';
+                } else {
+                    heartBox.style.width = '50px';
+                    heartBox.style.height = '50px';
+                }
+
                 heartsContainer.appendChild(heartBox);
             });
         }
 
-        // DOMContentLoaded
-        document.addEventListener("DOMContentLoaded", function () {
-            try {
-                console.log("DOM yüklendi, uygulama başlatılıyor...");
-                createFloatingEHearts();
-                setInterval(createFloatingEHearts, 30000);
-                const questionContainer = document.getElementById('questionContainer');
-                const nextBtn = document.getElementById('nextBtn');
-                const progressBar = document.getElementById('progressBar');
-                const doorContainer = document.querySelector('.door-container');
-                const downloadButton = document.getElementById('downloadButton');
-
-                // Arka plan animasyonları
-                function createStars() {
-                    const starsContainer = document.querySelector('.stars');
-                    starsContainer.innerHTML = '';
-                    for (let i = 0; i < 200; i++) {
-                        const star = document.createElement('div');
-                        star.classList.add('star');
-                        star.style.left = `${Math.random() * 100}%`;
-                        star.style.top = `${Math.random() * 100}%`;
-                        star.style.animationDelay = `${Math.random() * 5}s`;
-                        star.style.width = `${Math.random() * 3 + 1}px`;
-                        star.style.height = star.style.width;
-                        starsContainer.appendChild(star);
-                    }
-                }
-                function createRaindrops() {
-                    const rainContainer = document.querySelector('.rain');
-                    rainContainer.innerHTML = '';
-                    for (let i = 0; i < 100; i++) {
-                        const drop = document.createElement('div');
-                        drop.classList.add('drop');
-                        drop.style.left = `${Math.random() * 100}%`;
-                        drop.style.animationDelay = `${Math.random() * 2}s`;
-                        drop.style.height = `${Math.random() * 20 + 10}px`;
-                        rainContainer.appendChild(drop);
-                    }
-                }
-                function createPetals() {
-                    const petalsContainer = document.querySelector('.petals');
-                    petalsContainer.innerHTML = '';
-                    for (let i = 0; i < 50; i++) {
-                        const petal = document.createElement('div');
-                        petal.classList.add('petal');
-                        petal.style.left = `${Math.random() * 100}%`;
-                        petal.style.animationDelay = `${Math.random() * 10}s`;
-                        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
-                        petal.style.opacity = Math.random() * 0.7 + 0.3;
-                        petalsContainer.appendChild(petal);
-                    }
-                }
-                function createHeartsBg() {
-                    const heartsContainer = document.querySelector('.hearts-bg');
-                    heartsContainer.innerHTML = '';
-                    for (let i = 0; i < 40; i++) {
-                        const heart = document.createElement('div');
-                        heart.classList.add('heart-bg');
-                        heart.innerHTML = '❤️';
-                        heart.style.left = `${Math.random() * 100}%`;
-                        heart.style.animationDelay = `${Math.random() * 12}s`;
-                        heart.style.fontSize = `${Math.random() * 20 + 10}px`;
-                        heart.style.opacity = Math.random() * 0.7 + 0.3;
-                        heartsContainer.appendChild(heart);
-                    }
-                }
-                function createFirework(x, y) {
-                    const colors = ['#ff0000', '#ff69b4', '#00ff00', '#ffff00', '#ff00ff', '#00ffff'];
-                    for (let i = 0; i < 50; i++) {
-                        const firework = document.createElement('div');
-                        firework.classList.add('firework');
-                        firework.style.left = `${x}px`;
-                        firework.style.top = `${y}px`;
-                        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        const angle = Math.random() * Math.PI * 2;
-                        const velocity = Math.random() * 8 + 2;
-                        const lifetime = Math.random() * 1000 + 1000;
-                        document.body.appendChild(firework);
-                        const startTime = Date.now();
-                        function animateFirework() {
-                            const elapsed = Date.now() - startTime;
-                            const progress = elapsed / lifetime;
-                            if (progress < 1) {
-                                const distance = velocity * elapsed / 30;
-                                const opacity = 1 - progress;
-                                const scale = 1 + progress;
-                                firework.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(${scale})`;
-                                firework.style.opacity = opacity;
-                                requestAnimationFrame(animateFirework);
-                            } else {
-                                firework.remove();
-                            }
-                        }
-                        requestAnimationFrame(animateFirework);
-                    }
-                }
-                function autoFireworks() {
-                    const celebrationScreen = document.getElementById('celebrationScreen');
-                    if (celebrationScreen.style.opacity === '1') {
-                        const width = window.innerWidth;
-                        const height = window.innerHeight;
-                        createFirework(Math.random() * width, Math.random() * height * 0.6);
-                        setTimeout(autoFireworks, Math.random() * 1000 + 500);
-                    }
-                }
-                function downloadJson() {
-                    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userAnswers, null, 2));
-                    const downloadAnchorNode = document.createElement('a');
-                    downloadAnchorNode.setAttribute("href", dataStr);
-                    downloadAnchorNode.setAttribute("download", "kalp_kapilari_cevaplari.json");
-                    document.body.appendChild(downloadAnchorNode);
-                    downloadAnchorNode.click();
-                    downloadAnchorNode.remove();
-                }
-                function updateProgressBar() {
-                    if (!progressBar) {
-                        console.error("Progress bar bulunamadı!");
-                        return;
-                    }
-                    const progress = ((currentQuestion) / questions.length) * 100;
-                    progressBar.style.width = `${progress}%`;
-                    console.log(`İlerleme: %${progress}`);
-                }
-                function changeBackground(mode) {
-                    console.log(`Arka plan değiştiriliyor: ${mode}`);
-                    document.querySelector('.stars').style.display = 'none';
-                    document.querySelector('.rain').style.display = 'none';
-                    document.querySelector('.petals').style.display = 'none';
-                    document.querySelector('.hearts-bg').style.display = 'none';
-                    if (mode === 'stars') {
-                        document.querySelector('.stars').style.display = 'block';
-                    } else if (mode === 'rain') {
-                        document.querySelector('.rain').style.display = 'block';
-                    } else if (mode === 'petals') {
-                        document.querySelector('.petals').style.display = 'block';
-                    } else if (mode === 'hearts') {
-                        document.querySelector('.hearts-bg').style.display = 'block';
-                    }
-                }
-                function displayQuestion() {
-                    console.log(`Soru yükleniyor: ${currentQuestion + 1}/${questions.length}`);
-                    if (nextBtn) {
-                        nextBtn.classList.add('hidden');
-                    } else {
-                        console.error("Next butonu bulunamadı!");
-                        return;
-                    }
-                    if (!questionContainer) {
-                        console.error("Question container bulunamadı!");
-                        return;
-                    }
-                    if (currentQuestion < questions.length) {
-                        questionContainer.innerHTML = "";
-                        const q = questions[currentQuestion];
-                        changeBackground(q.background);
-                        const questionElement = document.createElement('div');
-                        questionElement.classList.add('question');
-                        const questionTitle = document.createElement('h2');
-                        questionTitle.textContent = q.question;
-                        questionElement.appendChild(questionTitle);
-                        questionContainer.appendChild(questionElement);
-                        if (q.type === "mcq") {
-                            const optionsContainer = document.createElement('div');
-                            optionsContainer.classList.add('options');
-                            q.options.forEach((option, index) => {
-                                const optionDiv = document.createElement('div');
-                                optionDiv.classList.add('option-item');
-                                const radio = document.createElement('input');
-                                radio.type = "radio";
-                                radio.name = "option";
-                                radio.id = "option" + index;
-                                radio.value = option;
-                                const label = document.createElement('label');
-                                label.htmlFor = "option" + index;
-                                label.textContent = option;
-                                optionDiv.appendChild(radio);
-                                optionDiv.appendChild(label);
-                                optionDiv.addEventListener('click', function () {
-                                    radio.checked = true;
-                                    nextBtn.classList.remove('hidden');
-                                });
-                                optionsContainer.appendChild(optionDiv);
-                            });
-                            questionContainer.appendChild(optionsContainer);
-                        }
-                        else if (q.type === "text") {
-                            const inputField = document.createElement('input');
-                            inputField.type = "text";
-                            inputField.placeholder = "Cevabınızı yazın...";
-                            inputField.addEventListener('input', function () {
-                                if (this.value.trim() !== "") {
-                                    nextBtn.classList.remove('hidden');
-                                } else {
-                                    nextBtn.classList.add('hidden');
-                                }
-                            });
-                            questionContainer.appendChild(inputField);
-                        }
-                        updateProgressBar();
-                    } else {
-                        console.log("Tüm sorular tamamlandı, final ekranına geçiliyor.");
-                        showFinalScreen();
-                    }
-                }
-                function showYourAnswer(message) {
-                    nextBtn.classList.add('hidden');
-                    const optionsArea = questionContainer.querySelector('.options');
-                    const inputField = questionContainer.querySelector('input[type="text"]');
-                    if (optionsArea) optionsArea.remove();
-                    if (inputField) inputField.remove();
-                    const yourMessageDiv = document.createElement('div');
-                    yourMessageDiv.classList.add('your-message');
-                    yourMessageDiv.innerHTML = `
-                        <h3>Benim cevabım:</h3>
-                        <p>${message}</p>
-                        <button id="continueBtn" class="btn">💖 Devam Et 💖</button>
-                    `;
-                    questionContainer.appendChild(yourMessageDiv);
-                    setTimeout(() => {
-                        for (let i = 0; i < 5; i++) {
-                            setTimeout(() => {
-                                const heart = document.createElement('div');
-                                heart.innerHTML = '❤️';
-                                heart.style.position = 'absolute';
-                                heart.style.fontSize = '2rem';
-                                heart.style.opacity = '0';
-                                heart.style.zIndex = '1000';
-                                const rect = yourMessageDiv.getBoundingClientRect();
-                                const x = rect.left + Math.random() * rect.width;
-                                const y = rect.top + Math.random() * rect.height;
-                                heart.style.left = `${x}px`;
-                                heart.style.top = `${y}px`;
-                                heart.style.animation = 'float-heart-special 2s forwards';
-                                heart.style.animationTimingFunction = 'ease-out';
-                                document.body.appendChild(heart);
-                                setTimeout(() => heart.remove(), 2000);
-                            }, i * 300);
-                        }
-                    }, 500);
-                    document.getElementById('continueBtn').addEventListener('click', function () {
-                        moveToNextQuestion();
-                    });
-                }
-                function moveToNextQuestion() {
-                    currentQuestion++;
-                    if (doorContainer) {
-                        doorContainer.classList.add('door-open');
-                        try {
-                            const doorSound = document.getElementById('doorSound');
-                            if (doorSound) doorSound.play().catch(e => console.log('Ses oynatma hatası:', e));
-                        } catch (e) {
-                            console.log('Ses oynatma hatası:', e);
-                        }
-                        setTimeout(function () {
-                            doorContainer.classList.remove('door-open');
-                            console.log("Kapı kapandı, yeni soru yükleniyor...");
-                            displayQuestion();
-                        }, 1500);
-                    } else {
-                        console.error("Kapı elementi bulunamadı!");
-                        displayQuestion();
-                    }
-                }
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', function () {
-                        console.log("Next butonuna tıklandı");
-                        try {
-                            const q = questions[currentQuestion];
-                            let answer;
-                            if (q.type === "mcq") {
-                                const selected = document.querySelector('input[name="option"]:checked');
-                                if (selected) {
-                                    answer = selected.value;
-                                } else {
-                                    alert("Lütfen bir seçenek seçin.");
-                                    return;
-                                }
-                            } else if (q.type === "text") {
-                                const inputField = questionContainer.querySelector('input[type="text"]');
-                                if (inputField && inputField.value.trim() === "") {
-                                    alert("Lütfen bir cevap yazın.");
-                                    return;
-                                }
-                                answer = inputField ? inputField.value : "";
-                            }
-                            userAnswers.answers.push({ question: q.question, answer: answer });
-                            if (q.yourMessage && q.yourMessage.trim() !== "") {
-                                showYourAnswer(q.yourMessage);
-                            } else {
-                                moveToNextQuestion();
-                            }
-                        } catch (err) {
-                            console.error("Next butonu işlenirken hata:", err);
-                        }
-                    });
-                } else {
-                    console.error("Next butonu bulunamadı!");
-                }
-                function setupNoButton() {
-                    const noBtn = document.getElementById('noBtn');
-                    let clickCount = 0;
-                    if (noBtn) {
-                        noBtn.removeEventListener('mouseover', moveAwayButton);
-                        noBtn.removeEventListener('touchstart', touchMoveHandler);
-                        noBtn.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            clickCount++;
-                            // Hayır butonuna tıklandığında finalde teşekkür mesajı gösterilecek
-                            handleNoFinal();
-                        });
-                    }
-                }
-                function touchMoveHandler(e) {
-                    e.preventDefault();
-                    moveAwayButton();
-                }
-                function handleNoFinal() {
-                    const finalScreen = document.getElementById('finalScreen');
-                    // Final ekranı içeriğini "harcadığın zaman için teşekkür ederim" mesajıyla değiştiriyoruz
-                    finalScreen.innerHTML = `
-                        <div class="final-heart-container">
-                            <div class="final-heart">❤️</div>
-                        </div>
-                        <h2 style="font-family:'Libre Baskerville', serif; color:#ff9ed8; text-shadow:0 0 10px rgba(255,158,216,0.5);">
-                            Harcadığın zaman için teşekkür ederim.
-                        </h2>
-                    `;
-                    // Müzik durduruluyor
-                    try {
-                        const backgroundMusic = document.getElementById('backgroundMusic');
-                        if (backgroundMusic) backgroundMusic.pause();
-                    } catch (err) {
-                        console.warn("Müzik durdurulurken hata:", err);
-                    }
-                }
-                function showFinalScreen() {
-                    console.log("Final ekranı gösteriliyor...");
-                    const quizScreen = document.getElementById('quizScreen');
-                    const finalScreen = document.getElementById('finalScreen');
-                    if (quizScreen) quizScreen.style.display = 'none';
-                    if (finalScreen) {
-                        finalScreen.style.display = 'flex';
-                        const yesBtn = document.getElementById('yesBtn');
-                        if (yesBtn) {
-                            yesBtn.addEventListener('click', function () {
-                                if (finalScreen) {
-                                    finalScreen.innerHTML = `
-                                        <div class="final-heart-container">
-                                            <div class="final-heart">❤️</div>
-                                        </div>
-                                        <h1 class="proposal-text">
-                                            Sevginin ateşiyle yanar gönlüm, her anım seninle anlam bulur;<br>
-                                            Geleceğimizde mutluluğun rüzgarı esince, kalbim sana sonsuz bir şiir sunar.
-                                        </h1>
-                                    `;
-                                }
-                                try {
-                                    const celebrationSound = document.getElementById('celebrationSound');
-                                    if (celebrationSound) celebrationSound.play().catch(err => console.warn("Kutlama sesi oynatılamadı:", err));
-                                } catch (e) {
-                                    console.warn("Ses oynatılırken hata:", e);
-                                }
-                                autoFireworks();
-                                if (downloadButton) downloadButton.style.display = 'block';
-                            });
-                        }
-                        setupNoButton();
-                    }
-                }
-                if (downloadButton) {
-                    downloadButton.addEventListener('click', downloadJson);
-                }
-                setTimeout(function () {
-                    console.log("İlk mesaj değiştiriliyor...");
-                    const besmeleEl = document.querySelector(".besmele");
-                    if (besmeleEl) {
-                        besmeleEl.textContent = "Seni kalbimde bir yolculuğa çıkacağım";
-                    } else {
-                        console.error("Besmele elementi bulunamadı!");
-                    }
-                }, 10000);
-                setTimeout(function () {
-                    console.log("Soru ekranına geçiliyor...");
-                    const besmeleScreen = document.getElementById('besmeleScreen');
-                    if (besmeleScreen) {
-                        besmeleScreen.style.display = 'none';
-                    } else {
-                        console.error("Besmele ekranı bulunamadı!");
-                    }
-                    const quizScreen = document.getElementById('quizScreen');
-                    if (quizScreen) {
-                        quizScreen.style.display = 'flex';
-                    } else {
-                        console.error("Quiz ekranı bulunamadı!");
-                    }
-                    try {
-                        const backgroundMusic = document.getElementById('backgroundMusic');
-                        if (backgroundMusic) {
-                            backgroundMusic.play().catch(err => console.warn("Müzik oynatılamadı:", err));
-                        }
-                    } catch (err) {
-                        console.warn("Müzik oynatılırken hata:", err);
-                    }
-                    console.log("İlk soru yükleniyor...");
-                    displayQuestion();
-                }, 17000);
-                createStars();
-                createRaindrops();
-                createPetals();
-                createHeartsBg();
-                console.log("Uygulama yüklendi, başlangıç bekliyor...");
-            } catch (err) {
-                console.error("Genel uygulama hatası:", err);
-                alert("Uygulama yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin veya tarayıcı konsolunu kontrol edin.");
+        // Arka plan animasyonları
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                starsContainer.appendChild(star);
             }
+        }
+
+        function createRaindrops() {
+            const rainContainer = document.querySelector('.rain');
+            rainContainer.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('drop');
+                drop.style.left = `${Math.random() * 100}%`;
+                drop.style.animationDelay = `${Math.random() * 2}s`;
+                drop.style.height = `${Math.random() * 20 + 10}px`;
+                rainContainer.appendChild(drop);
+            }
+        }
+
+        function createPetals() {
+            const petalsContainer = document.querySelector('.petals');
+            petalsContainer.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.animationDelay = `${Math.random() * 10}s`;
+                petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+                petal.style.opacity = Math.random() * 0.7 + 0.3;
+                petalsContainer.appendChild(petal);
+            }
+        }
+
+        function createHeartsBg() {
+            const heartsContainer = document.querySelector('.hearts-bg');
+            heartsContainer.innerHTML = '';
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-bg');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 12}s`;
+                heart.style.fontSize = `${Math.random() * 20 + 10}px`;
+                heart.style.opacity = Math.random() * 0.7 + 0.3;
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Havai fişek
+        function createFirework(x, y) {
+            const colors = ['#ff0000', '#ff69b4', '#00ff00', '#ffff00', '#ff00ff', '#00ffff'];
+            for (let i = 0; i < 50; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 8 + 2;
+                const lifetime = Math.random() * 1000 + 1000;
+                document.body.appendChild(firework);
+                const startTime = Date.now();
+                function animateFirework() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / lifetime;
+                    if (progress < 1) {
+                        const distance = velocity * elapsed / 30;
+                        const opacity = 1 - progress;
+                        const scale = 1 + progress;
+                        firework.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(${scale})`;
+                        firework.style.opacity = opacity;
+                        requestAnimationFrame(animateFirework);
+                    } else {
+                        firework.remove();
+                    }
+                }
+                requestAnimationFrame(animateFirework);
+            }
+        }
+
+        function autoFireworks() {
+            const celebrationScreen = document.getElementById('celebrationScreen');
+            if (celebrationScreen && celebrationScreen.style.opacity === '1') {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                createFirework(Math.random() * width, Math.random() * height * 0.6);
+                setTimeout(autoFireworks, Math.random() * 1000 + 500);
+            }
+        }
+
+        // JSON İndirme (isteğe bağlı)
+        function downloadJson() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userAnswers, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "kalp_kapilari_cevaplari.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        // İlerleme çubuğu
+        function updateProgressBar() {
+            const progressBarElement = document.getElementById('progressBar');
+            if (!progressBarElement) {
+                console.error("Progress bar bulunamadı!");
+                return;
+            }
+            const progress = ((currentQuestion) / questions.length) * 100;
+            progressBarElement.style.width = `${progress}%`;
+            console.log(`İlerleme: %${progress}`);
+        }
+
+        // Arka plan geçişi
+        function changeBackground(mode) {
+            console.log(`Arka plan değiştiriliyor: ${mode}`);
+            document.querySelector('.stars').style.display = 'none';
+            document.querySelector('.rain').style.display = 'none';
+            document.querySelector('.petals').style.display = 'none';
+            document.querySelector('.hearts-bg').style.display = 'none';
+            if (mode === 'stars') {
+                document.querySelector('.stars').style.display = 'block';
+            } else if (mode === 'rain') {
+                document.querySelector('.rain').style.display = 'block';
+            } else if (mode === 'petals') {
+                document.querySelector('.petals').style.display = 'block';
+            } else if (mode === 'hearts') {
+                document.querySelector('.hearts-bg').style.display = 'block';
+            }
+        }
+
+        // Soru Ekranı
+        function displayQuestion() {
+            console.log(`Soru yükleniyor: ${currentQuestion + 1}/${questions.length}`);
+
+            // DOM elementlerini güvenli şekilde al
+            const nextBtnElement = document.getElementById('nextBtn');
+            const questionContainerElement = document.getElementById('questionContainer');
+
+            if (nextBtnElement) {
+                nextBtnElement.classList.add('hidden');
+            }
+
+            if (!questionContainerElement) {
+                console.error("Question container bulunamadı!");
+                return;
+            }
+
+            if (currentQuestion < questions.length) {
+                questionContainerElement.innerHTML = "";
+                const q = questions[currentQuestion];
+                changeBackground(q.background);
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('question');
+                const questionTitle = document.createElement('h2');
+                questionTitle.textContent = q.question;
+                questionElement.appendChild(questionTitle);
+                questionContainerElement.appendChild(questionElement);
+                if (q.type === "mcq") {
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.classList.add('options');
+                    q.options.forEach((option, index) => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.classList.add('option-item');
+                        const radio = document.createElement('input');
+                        radio.type = "radio";
+                        radio.name = "option";
+                        radio.id = "option" + index;
+                        radio.value = option;
+                        const label = document.createElement('label');
+                        label.htmlFor = "option" + index;
+                        label.textContent = option;
+                        optionDiv.appendChild(radio);
+                        optionDiv.appendChild(label);
+                        optionDiv.addEventListener('click', function () {
+                            radio.checked = true;
+                            if (nextBtnElement) nextBtnElement.classList.remove('hidden');
+                        });
+                        optionsContainer.appendChild(optionDiv);
+                    });
+                    questionContainerElement.appendChild(optionsContainer);
+                } else if (q.type === "text") {
+                    const inputField = document.createElement('input');
+                    inputField.type = "text";
+                    inputField.placeholder = "Cevabınızı yazın...";
+                    inputField.addEventListener('input', function () {
+                        if (this.value.trim() !== "") {
+                            if (nextBtnElement) nextBtnElement.classList.remove('hidden');
+                        } else {
+                            if (nextBtnElement) nextBtnElement.classList.add('hidden');
+                        }
+                    });
+                    questionContainerElement.appendChild(inputField);
+                }
+                updateProgressBar();
+            } else {
+                console.log("Tüm sorular tamamlandı, final ekranına geçiliyor.");
+                showFinalScreen();
+            }
+        }
+
+        // Sizin cevabınız
+        function showYourAnswer(message) {
+            const nextBtnElement = document.getElementById('nextBtn');
+            const questionContainerElement = document.getElementById('questionContainer');
+
+            if (nextBtnElement) {
+                nextBtnElement.classList.add('hidden');
+            }
+
+            if (!questionContainerElement) {
+                console.error("Question container bulunamadı!");
+                return;
+            }
+
+            const optionsArea = questionContainerElement.querySelector('.options');
+            const inputField = questionContainerElement.querySelector('input[type="text"]');
+
+            if (optionsArea) optionsArea.remove();
+            if (inputField) inputField.remove();
+
+            const yourMessageDiv = document.createElement('div');
+            yourMessageDiv.classList.add('your-message');
+            yourMessageDiv.innerHTML = `
+                            <h3>Benim cevabım:</h3>
+                            <p>${message}</p>
+                            <button id="continueBtn" class="btn">💖 Devam Et 💖</button>
+                          `;
+            questionContainerElement.appendChild(yourMessageDiv);
+
+            setTimeout(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = '❤️';
+                        heart.style.position = 'absolute';
+                        heart.style.fontSize = '2rem';
+                        heart.style.opacity = '0';
+                        heart.style.zIndex = '1000';
+                        const rect = yourMessageDiv.getBoundingClientRect();
+                        const x = rect.left + Math.random() * rect.width;
+                        const y = rect.top + Math.random() * rect.height;
+                        heart.style.left = `${x}px`;
+                        heart.style.top = `${y}px`;
+                        heart.style.animation = 'float-heart-special 2s forwards';
+                        heart.style.animationTimingFunction = 'ease-out';
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), 2000);
+                    }, i * 300);
+                }
+            }, 500);
+
+            const continueBtnElement = document.getElementById('continueBtn');
+            if (continueBtnElement) {
+                continueBtnElement.addEventListener('click', function () {
+                    moveToNextQuestion();
+                });
+            } else {
+                console.error("Devam butonu bulunamadı!");
+                // Alternatif olarak otomatik olarak ilerle
+                setTimeout(moveToNextQuestion, 3000);
+            }
+        }
+
+        // Sonraki Soru
+        function moveToNextQuestion() {
+            currentQuestion++;
+
+            // Her çağrıda door container'ı yeniden al
+            const doorContainerElement = document.querySelector('.door-container');
+
+            if (doorContainerElement) {
+                doorContainerElement.classList.add('door-open');
+                try {
+                    const doorSound = document.getElementById('doorSound');
+                    if (doorSound) doorSound.play().catch(e => console.log('Ses oynatma hatası:', e));
+                } catch (e) {
+                    console.log('Ses oynatma hatası:', e);
+                }
+                setTimeout(function () {
+                    doorContainerElement.classList.remove('door-open');
+                    console.log("Kapı kapandı, yeni soru yükleniyor...");
+                    displayQuestion();
+                }, 1500);
+            } else {
+                console.error("Kapı elementi bulunamadı!");
+                displayQuestion();
+            }
+        }
+
+       
+        function setupNextButton() {
+            const nextBtnElement = document.getElementById('nextBtn');
+            if (nextBtnElement) {
+                nextBtnElement.addEventListener('click', function () {
+                    try {
+                        const q = questions[currentQuestion];
+                        let answer;
+
+                        const questionContainerElement = document.getElementById('questionContainer');
+                        if (!questionContainerElement) {
+                            console.error("Question container bulunamadı!");
+                            return;
+                        }
+
+                        if (q.type === "mcq") {
+                            const selected = document.querySelector('input[name="option"]:checked');
+                            if (selected) {
+                                answer = selected.value;
+                            } else {
+                                alert("Lütfen bir seçenek seçin.");
+                                return;
+                            }
+                        } else if (q.type === "text") {
+                            const inputField = questionContainerElement.querySelector('input[type="text"]');
+                            if (inputField && inputField.value.trim() === "") {
+                                alert("Lütfen bir cevap yazın.");
+                                return;
+                            }
+                            answer = inputField ? inputField.value : "";
+                        }
+
+                        userAnswers.answers.push({ question: q.question, answer: answer });
+
+                        if (q.yourMessage && q.yourMessage.trim() !== "") {
+                            showYourAnswer(q.yourMessage);
+                        } else {
+                            moveToNextQuestion();
+                        }
+                    } catch (err) {
+                        console.error("Next butonu işlenirken hata:", err);
+                    }
+                });
+            } else {
+                console.error("Next butonu bulunamadı!");
+            }
+        }
+
+      
+        function showVoidAnimation() {
+            const finalScreen = document.getElementById('finalScreen');
+            if (!finalScreen) {
+                console.error("Final ekranı bulunamadı!");
+                return;
+            }
+
+            const originalContent = finalScreen.innerHTML;
+
+          
+            finalScreen.innerHTML = `
+                            <div class="void-animation active">
+                                <div class="void-center"></div>
+                                <div class="stars-void"></div>
+                                <div class="void-message" style="opacity: 1; z-index: 100;">
+                                    <h2>Tebrikler Eylülüm</h2>
+                                    <p>Tekrar tıkla ve cevabın onaylanacak</p>
+                                    <p class="bitter-smile">(acı gülümsemelerimle sevgiler sevdiğim)</p>
+                                </div>
+                            </div>
+                        `;
+
+            
+            const heartElements = document.querySelectorAll('.heart-bg, .e-heart, .heart-box, .final-heart, .door-decoration');
+            heartElements.forEach(heart => {
+               
+                if (heart.innerHTML && heart.innerHTML.includes('❤️')) {
+                    heart.innerHTML = heart.innerHTML.replace('❤️', '💔');
+                }
+              
+                heart.setAttribute('data-broken', 'true');
+            });
+
+           
+            const style = document.createElement('style');
+            style.id = 'broken-hearts-style';
+            style.textContent = `
+                            .e-heart[data-broken=true]::before {
+                                content: "E💔";
+                            }
+                            .heart-box[data-broken=true]::before {
+                                content: "💔";
+                            }
+                        `;
+            document.head.appendChild(style);
+
+         
+            setTimeout(() => {
+                finalScreen.innerHTML = originalContent;
+                setupFinalButtons();
+
+                
+                const finalHeart = document.querySelector('.final-heart');
+                if (finalHeart) {
+                    finalHeart.textContent = '💔';
+                }
+            }, 5000);
+        }
+
+        
+        function setupFinalButtons() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+
+            if (yesBtn) {
+                yesBtn.addEventListener('click', function () {
+                    const finalScreen = document.getElementById('finalScreen');
+                    if (finalScreen) {
+                        finalScreen.innerHTML = `
+                                  <div class="final-heart-container">
+                                    <div class="final-heart">❤️</div>
+                                  </div>
+                                  <h1 class="proposal-text">
+                                    Bunu özlediğim o sesinden canlı canlı duymak istiyorum şimdi arar mısın lütfen
+                                  </h1>
+                                `;
+                    }
+
+                    try {
+                        const celebrationSound = document.getElementById('celebrationSound');
+                        if (celebrationSound) celebrationSound.play().catch(err => console.warn("Kutlama sesi oynatılamadı:", err));
+                    } catch (e) {
+                        console.warn("Ses oynatılırken hata:", e);
+                    }
+
+                    autoFireworks();
+                });
+            }
+
+            if (noBtn) {
+                noBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (noClickCount === 0) {
+                        noClickCount++;
+                      
+                        showVoidAnimation();
+                    } else {
+                        noClickCount++;
+                       
+                        const finalHeart = document.querySelector('.final-heart');
+                        if (finalHeart) {
+                            finalHeart.textContent = '💔';
+                        }
+
+                        const doorDecorations = document.querySelectorAll('.door-decoration');
+                        doorDecorations.forEach(decoration => {
+                            decoration.textContent
+                                = '💔';
+                        });
+
+                        
+                        const finalScreen = document.getElementById('finalScreen');
+                        finalScreen.innerHTML = `
+                                <div class="thank-you-message">
+                                    <h2>Zaman ayırdığın için teşekkür ederim Eylül</h2>
+                                </div>
+                            `;
+                    }
+                });
+            }
+        }
+
+        function showFinalScreen() {
+            console.log("Final ekranı gösteriliyor...");
+            const quizScreen = document.getElementById('quizScreen');
+            const finalScreen = document.getElementById('finalScreen');
+
+            if (quizScreen) quizScreen.style.display = 'none';
+            if (finalScreen) {
+                finalScreen.style.display = 'flex';
+                setupFinalButtons();
+            }
+        }
+
+        
+        function setupStartButton() {
+            const startBtn = document.getElementById('startBtn');
+            if (startBtn) {
+                startBtn.addEventListener('click', function () {
+                    const besmeleScreen = document.getElementById('besmeleScreen');
+                    const transitionScreen = document.getElementById('transitionScreen');
+
+                    if (besmeleScreen) { besmeleScreen.style.display = 'none'; }
+                    if (transitionScreen) {
+                        transitionScreen.style.display = 'flex';
+                        setTimeout(function () {
+                            transitionScreen.style.display = 'none';
+                            const quizScreen = document.getElementById('quizScreen');
+                            if (quizScreen) { quizScreen.style.display = 'flex'; }
+
+                            try {
+                                const backgroundMusic = document.getElementById('backgroundMusic');
+                                if (backgroundMusic) {
+                                    backgroundMusic.play().catch(err => console.warn("Müzik oynatılamadı:", err));
+                                }
+                            } catch (err) {
+                                console.warn("Müzik oynatılırken hata:", err);
+                            }
+
+                            console.log("Geçiş tamamlandı, ilk soru yükleniyor...");
+                            displayQuestion();
+                        }, 7000);
+                    }
+                });
+            } else {
+                console.error("Başlayalım butonu bulunamadı!");
+            }
+        }
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+           
+            doorContainer = document.querySelector('.door-container');
+            questionContainer = document.getElementById('questionContainer');
+            nextBtn = document.getElementById('nextBtn');
+            progressBar = document.getElementById('progressBar');
+
+            console.log("DOM elementleri başlatıldı:", {
+                doorContainer: !!doorContainer,
+                questionContainer: !!questionContainer,
+                nextBtn: !!nextBtn,
+                progressBar: !!progressBar
+            });
+
+            
+            setupStartButton();
+            setupNextButton();
+
+            
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                console.log("Mobil cihaz tespit edildi, optimizasyonlar uygulanıyor...");
+
+                
+                if (isIOS) {
+                    
+                    document.documentElement.style.height = '100%';
+                    document.body.style.height = '100%';
+                    document.body.style.overflow = 'auto';
+                    document.body.style.webkitOverflowScrolling = 'touch';
+
+                    
+                    document.addEventListener('touchstart', function () { }, { passive: true });
+
+                    
+                    const fixSafeAreaInsets = function () {
+                        const screens = document.querySelectorAll('.center, #besmeleScreen, #transitionScreen, #quizScreen, #finalScreen');
+                        screens.forEach(screen => {
+                            screen.style.paddingTop = 'env(safe-area-inset-top)';
+                            screen.style.paddingBottom = 'env(safe-area-inset-bottom)';
+                            screen.style.paddingLeft = 'env(safe-area-inset-left)';
+                            screen.style.paddingRight = 'env(safe-area-inset-right)';
+                        });
+                    };
+
+                    fixSafeAreaInsets();
+                    window.addEventListener('orientationchange', fixSafeAreaInsets);
+                }
+
+                
+                const makeElementsMoreTouchable = function () {
+                    
+                    const allButtons = document.querySelectorAll('.btn, #startBtn, #yesBtn, #noBtn');
+                    allButtons.forEach(btn => {
+                        btn.style.minHeight = '55px';
+                        btn.style.minWidth = '120px';
+                    });
+
+                   
+                    const optionItems = document.querySelectorAll('.option-item');
+                    optionItems.forEach(item => {
+                        item.style.minHeight = '50px';
+                        item.style.padding = '14px 10px';
+                    });
+                };
+
+                
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.type === 'childList') {
+                            makeElementsMoreTouchable();
+                        }
+                    });
+                });
+
+                observer.observe(document.body, { childList: true, subtree: true });
+
+               
+                makeElementsMoreTouchable();
+
+               
+                document.addEventListener('click', function () {
+                    const backgroundMusic = document.getElementById('backgroundMusic');
+                    if (backgroundMusic && backgroundMusic.paused) {
+                        backgroundMusic.play().catch(err => console.warn("Müzik otomatik başlatılamadı:", err));
+                    }
+                }, { once: true });
+            }
+
+            // Arka plan animasyonlarını oluştur
+            createStars();
+            createRaindrops();
+            createPetals();
+            createHeartsBg();
+            createFloatingEHearts();
+
+            //E-Kalpleri yenile
+            setInterval(createFloatingEHearts, isMobile ? 45000 : 30000);
+
+            console.log("Uygulama yüklendi, başlangıç bekliyor...");
         });
+
+        // Test
         window.testApp = function () {
             console.log("Uygulama test ediliyor...");
-            console.log("DOM Elementleri:");
             console.log("- besmeleScreen:", document.getElementById('besmeleScreen'));
             console.log("- quizScreen:", document.getElementById('quizScreen'));
             console.log("- questionContainer:", document.getElementById('questionContainer'));
             console.log("- nextBtn:", document.getElementById('nextBtn'));
             console.log("- Door Container:", document.querySelector('.door-container'));
-            console.log("Değişkenler:");
             console.log("- currentQuestion:", currentQuestion);
             console.log("- questions array length:", questions.length);
             console.log("E-Kalpler:", document.querySelectorAll('.e-heart').length);
